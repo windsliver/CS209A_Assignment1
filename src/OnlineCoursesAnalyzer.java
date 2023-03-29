@@ -5,7 +5,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 /**
- *
  * This is just a demo for you, please run it on JDK17 (some statements may be not allowed in lower version).
  * This is just a demo, and you can extend and implement functions
  * based on this demo, or implement it in a different way.
@@ -46,7 +45,24 @@ public class OnlineCoursesAnalyzer {
 
     //1
     public Map<String, Integer> getPtcpCountByInst() {
-        return null;
+        Map<String, Integer> map = new TreeMap<>(new AlphaComparator());
+
+        for (Course next : courses) {
+            int totalPtcps = next.participants;
+            if (map.containsKey(next.institution)) {
+                totalPtcps += map.get(next.institution);
+            }
+
+            map.put(next.institution, totalPtcps);
+        }
+
+        return map;
+    }
+
+    class AlphaComparator implements Comparator<String> {
+        public int compare(String o1, String o2) {
+            return o1.compareTo(o2);
+        }
     }
 
     //2
